@@ -27,8 +27,7 @@ func NewAdapter() (AdapterInterface, error) {
 	return a, nil
 }
 
-// Validate validates bound values of an unpacker struct against
-// validation rules defined in that unpacker struct.
+// Validate validates fields of a struct.
 func (a *Adapter) Validate(data interface{}) map[string]string {
 
 	// returns nil or ValidationErrors ( []FieldError )
