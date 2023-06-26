@@ -31,7 +31,7 @@ func NewAdapter() (AdapterInterface, error) {
 // Validate validates structs and slices of structs.
 func (a *Adapter) Validate(data interface{}) map[string]string {
 	if isSlice(data) {
-		return a.validateSliceOfStructs(data.([]interface{}))
+		return a.validateSliceOfStructs(convertToSlice(data))
 	}
 
 	return a.validateStruct(data)
@@ -71,7 +71,6 @@ func (a *Adapter) validateSliceOfStructs(data []interface{}) map[string]string {
 
 	for i, d := range data {
 		res := a.validateStruct(d)
-
 		// prepend the key name of the struct field with the index position of it in the array
 		for k, v := range res {
 			e[fmt.Sprintf(`%d_%s`, i, k)] = v
