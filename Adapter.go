@@ -16,7 +16,6 @@ type Adapter struct {
 
 // NewAdapter creates a new validator adapter instance.
 func NewAdapter() (AdapterInterface, error) {
-
 	a := &Adapter{}
 
 	a.validate = validator.New()
@@ -29,7 +28,6 @@ func NewAdapter() (AdapterInterface, error) {
 
 // Validate validates fields of a struct.
 func (a *Adapter) Validate(data interface{}) map[string]string {
-
 	// returns nil or ValidationErrors ( []FieldError )
 	err := a.validate.Struct(data)
 	if err == nil {
@@ -44,7 +42,6 @@ func (a *Adapter) Validate(data interface{}) map[string]string {
 
 // ValidateField validates a single variable.
 func (a *Adapter) ValidateField(field interface{}, rules string) map[string]string {
-
 	// returns nil or ValidationErrors ( []FieldError )
 	err := a.validate.Var(field, rules)
 	if err == nil {
@@ -59,7 +56,6 @@ func (a *Adapter) ValidateField(field interface{}, rules string) map[string]stri
 
 // getTranslator returns a translator for the given locale.
 func (a *Adapter) getTranslator(locale string) ut.Translator {
-
 	// this is usually know or extracted from http 'Accept-Language' header
 	// also see uni.FindTranslator(...)
 	trans, _ := a.uni.GetTranslator(locale)
