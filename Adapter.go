@@ -38,17 +38,21 @@ func (a *Adapter) Validate(data interface{}) map[string]string {
 }
 
 // ValidateField validates a single variable.
-func (a *Adapter) ValidateField(field interface{}, rules string) map[string]string {
+func (a *Adapter) ValidateField(name string, value interface{}, rules string) map[string]string {
 	// returns nil or ValidationErrors ( []FieldError )
-	err := a.validate.Var(field, rules)
+	err := a.validate.Var(value, rules)
 	if err == nil {
 		return nil
 	}
 
 	// from here you can create your own error messages in whatever language you wish
 	errs := err.(validator.ValidationErrors)
+	result := errs.Translate(a.getTranslator("en"))
 
-	return errs.Translate(a.getTranslator("en"))
+	result[name] = result[""]
+	delete(result, "")
+
+	return result
 }
 
 // validateStruct validates a struct.

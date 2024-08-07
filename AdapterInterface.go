@@ -6,5 +6,5 @@ type AdapterInterface interface {
 	Validate(data interface{}) map[string]string
 
 	// ValidateField validates a single variable.
-	ValidateField(field interface{}, rules string) map[string]string
+	ValidateField(name string, value interface{}, rules string) map[string]string
 }
